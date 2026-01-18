@@ -45,7 +45,9 @@ export function LoginForm() {
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl font-bold">Login</CardTitle>
-        <CardDescription>Enter your email and password to access your account</CardDescription>
+        <CardDescription>
+          Enter your email and password to access your account
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <Form {...form}>
@@ -86,7 +88,9 @@ export function LoginForm() {
             />
             {loginError && (
               <p className="text-sm font-medium text-destructive">
-                {loginError instanceof Error ? loginError.message : "Invalid credentials"}
+                {loginError instanceof Error
+                  ? loginError.message
+                  : "Invalid credentials"}
               </p>
             )}
             <Button type="submit" className="w-full" disabled={isLoggingIn}>
@@ -99,7 +103,9 @@ export function LoginForm() {
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+            <span className="bg-background px-2 text-muted-foreground">
+              Or continue with
+            </span>
           </div>
         </div>
         <SocialAuth />
@@ -107,7 +113,10 @@ export function LoginForm() {
       <CardFooter className="flex flex-wrap items-center justify-center gap-2">
         <div className="text-sm text-muted-foreground">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="text-primary hover:underline font-medium">
+          <Link
+            href="/register"
+            className="text-primary hover:underline font-medium"
+          >
             Sign up
           </Link>
         </div>

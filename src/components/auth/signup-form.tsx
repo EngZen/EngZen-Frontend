@@ -76,7 +76,9 @@ export function SignUpForm() {
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
-        <CardDescription>Enter your information to get started with EngZen</CardDescription>
+        <CardDescription>
+          Enter your information to get started with EngZen
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <Form {...form}>
@@ -118,9 +120,18 @@ export function SignUpForm() {
                   </FormControl>
                   <FormMessage />
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-2">
-                    <StrengthItem label="Min. 8 characters" met={passwordStrength.length} />
-                    <StrengthItem label="One uppercase" met={passwordStrength.uppercase} />
-                    <StrengthItem label="One number" met={passwordStrength.number} />
+                    <StrengthItem
+                      label="Min. 8 characters"
+                      met={passwordStrength.length}
+                    />
+                    <StrengthItem
+                      label="One uppercase"
+                      met={passwordStrength.uppercase}
+                    />
+                    <StrengthItem
+                      label="One number"
+                      met={passwordStrength.number}
+                    />
                   </div>
                 </FormItem>
               )}
@@ -140,7 +151,9 @@ export function SignUpForm() {
             />
             {signUpError && (
               <p className="text-sm font-medium text-destructive">
-                {signUpError instanceof Error ? signUpError.message : "Registration failed"}
+                {signUpError instanceof Error
+                  ? signUpError.message
+                  : "Registration failed"}
               </p>
             )}
             <Button type="submit" className="w-full" disabled={isSigningUp}>
@@ -153,7 +166,9 @@ export function SignUpForm() {
             <span className="w-full border-t" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">Or sign up with</span>
+            <span className="bg-background px-2 text-muted-foreground">
+              Or sign up with
+            </span>
           </div>
         </div>
         <SocialAuth />
@@ -161,7 +176,10 @@ export function SignUpForm() {
       <CardFooter className="flex flex-wrap items-center justify-center gap-2">
         <div className="text-sm text-muted-foreground">
           Already have an account?{" "}
-          <Link href="/login" className="text-primary hover:underline font-medium">
+          <Link
+            href="/login"
+            className="text-primary hover:underline font-medium"
+          >
             Log in
           </Link>
         </div>

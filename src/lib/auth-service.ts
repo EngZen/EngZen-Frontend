@@ -41,7 +41,9 @@ export const authService = {
     });
   },
 
-  forgotPassword: async (data: ForgotPasswordInput): Promise<{ message: string }> => {
+  forgotPassword: async (
+    data: ForgotPasswordInput,
+  ): Promise<{ message: string }> => {
     return apiClient("/auth/forgot-password", {
       method: "POST",
       body: JSON.stringify(data),
