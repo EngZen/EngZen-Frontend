@@ -21,18 +21,20 @@ export function proxy(request: NextRequest) {
   // In a real app, you should use httpOnly cookies for the access token.
   const token = request.cookies.get("access_token")?.value;
 
-  const isProtectedRoute = PROTECTED_ROUTES.some((route) =>
-    pathname.startsWith(route),
-  );
+  const isProtectedRoute =
+    PROTECTED_ROUTES.some((route) => pathname.startsWith(route)) ||
+    pathname === "/";
   const isAuthRoute = AUTH_ROUTES.some((route) => pathname.startsWith(route));
 
   if (isProtectedRoute && !token) {
     const url = new URL("/login", request.url);
-    url.searchParams.set("callbackUrl", pathname);
+    if (pathname !== "/") {
+      url.searchParams.set("callbackUrl", pathname);
+    }
     return NextResponse.redirect(url);
   }
 
-  if (isAuthRoute && token) {
+  if ((isAuthRoute || pathname === "/") && token) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
