@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2 } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -28,11 +27,14 @@ import {
   type ForgotPasswordInput,
   forgotPasswordSchema,
 } from "@/lib/validations/auth";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 
 export function ForgotPasswordForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const t = useTranslations("Auth.ForgotPassword");
 
   const form = useForm<ForgotPasswordInput>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -48,9 +50,7 @@ export function ForgotPasswordForm() {
       await authService.forgotPassword(data);
       setIsSubmitted(true);
     } catch {
-      // In a real scenario, we might not want to reveal if the email exists,
-      // but if the service fails, we show a general error.
-      setError("Something went wrong. Please try again later.");
+      setError(t("error"));
     } finally {
       setIsLoading(false);
     }
@@ -64,11 +64,10 @@ export function ForgotPasswordForm() {
             <CheckCircle2 className="h-12 w-12" />
           </div>
           <CardTitle className="text-2xl font-bold text-center">
-            Check your email
+            {t("successTitle")}
           </CardTitle>
           <CardDescription className="text-center">
-            If an account exists for {form.getValues("email")}, we&apos;ve sent
-            a link to reset your password.
+            {t("successDescription", { email: form.getValues("email") })}
           </CardDescription>
         </CardHeader>
         <CardFooter className="flex justify-center">
@@ -76,7 +75,7 @@ export function ForgotPasswordForm() {
             href="/login"
             className="text-primary hover:underline font-medium"
           >
-            Back to login
+            {t("backToLogin")}
           </Link>
         </CardFooter>
       </Card>
@@ -86,10 +85,8 @@ export function ForgotPasswordForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Forgot password?</CardTitle>
-        <CardDescription>
-          Enter your email and we&apos;ll send you a link to reset your password
-        </CardDescription>
+        <CardTitle className="text-2xl font-bold">{t("title")}</CardTitle>
+        <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <Form {...form}>
@@ -99,7 +96,7 @@ export function ForgotPasswordForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t("email")}</FormLabel>
                   <FormControl>
                     <Input placeholder="name@example.com" {...field} />
                   </FormControl>
@@ -111,19 +108,19 @@ export function ForgotPasswordForm() {
               <p className="text-sm font-medium text-destructive">{error}</p>
             )}
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Sending link..." : "Send Reset Link"}
+              {isLoading ? t("submitting") : t("submit")}
             </Button>
           </form>
         </Form>
       </CardContent>
       <CardFooter className="flex justify-center">
         <div className="text-sm text-muted-foreground">
-          Remembered your password?{" "}
+          {t("remembered")}{" "}
           <Link
             href="/login"
             className="text-primary hover:underline font-medium"
           >
-            Log in
+            {t("login")}
           </Link>
         </div>
       </CardFooter>

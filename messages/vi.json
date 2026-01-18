@@ -1,0 +1,69 @@
+{
+  "Auth": {
+    "Login": {
+      "title": "Đăng nhập",
+      "description": "Nhập email và mật khẩu để truy cập tài khoản của bạn",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "rememberMe": "Ghi nhớ đăng nhập",
+      "forgotPassword": "Quên mật khẩu?",
+      "submit": "Đăng nhập",
+      "submitting": "Đang đăng nhập...",
+      "noAccount": "Chưa có tài khoản?",
+      "signUp": "Đăng ký ngay",
+      "invalidCredentials": "Thông tin đăng nhập không hợp lệ",
+      "socialTitle": "Hoặc tiếp tục với"
+    },
+    "SignUp": {
+      "title": "Tạo tài khoản",
+      "description": "Nhập thông tin của bạn để bắt đầu với EngZen",
+      "fullName": "Họ và tên",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "confirmPassword": "Xác nhận mật khẩu",
+      "submit": "Tạo tài khoản",
+      "submitting": "Đang tạo tài khoản...",
+      "alreadyHaveAccount": "Đã có tài khoản?",
+      "login": "Đăng nhập",
+      "registrationFailed": "Đăng ký thất bại",
+      "socialTitle": "Hoặc đăng ký bằng",
+      "strength": {
+        "minChars": "Ít nhất 8 ký tự",
+        "uppercase": "Một chữ hoa",
+        "number": "Một chữ số"
+      }
+    },
+    "ForgotPassword": {
+      "title": "Quên mật khẩu?",
+      "description": "Nhập email của bạn và chúng tôi sẽ gửi liên kết để đặt lại mật khẩu",
+      "email": "Email",
+      "submit": "Gửi liên kết",
+      "submitting": "Đang gửi...",
+      "successTitle": "Kiểm tra email của bạn",
+      "successDescription": "Nếu tài khoản với email {email} tồn tại, chúng tôi đã gửi liên kết đặt lại mật khẩu.",
+      "backToLogin": "Quay lại đăng nhập",
+      "remembered": "Đã nhớ mật khẩu?",
+      "login": "Đăng nhập",
+      "error": "Đã có lỗi xảy ra. Vui lòng thử lại sau."
+    },
+    "ResetPassword": {
+      "title": "Đặt lại mật khẩu",
+      "description": "Nhập mật khẩu mới của bạn bên dưới",
+      "newPassword": "Mật khẩu mới",
+      "confirmNewPassword": "Xác nhận mật khẩu mới",
+      "submit": "Đặt lại mật khẩu",
+      "submitting": "Đang đặt lại...",
+      "successTitle": "Đặt lại mật khẩu thành công",
+      "successDescription": "Mật khẩu của bạn đã được đặt lại thành công. Đang chuyển hướng bạn đến trang đăng nhập...",
+      "error": "Đặt lại mật khẩu thất bại. Liên kết có thể đã hết hạn."
+    }
+  },
+  "Common": {
+    "brand": "EngZen",
+    "slogan": "Nâng tầm hành trình tiếng Anh của bạn"
+  },
+  "Index": {
+    "title": "Để bắt đầu, hãy chỉnh sửa tệp page.tsx.",
+    "description": "Bạn đang tìm điểm bắt đầu hoặc hướng dẫn thêm? Hãy truy cập Templates hoặc Trung tâm học tập."
+  }
+}

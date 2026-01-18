@@ -1,5 +1,6 @@
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
+import createIntlMiddleware from "next-intl/middleware";
+import { type NextRequest, NextResponse } from "next/server";
+import { Locale, routing } from "./i18n/routing";
 
 const PROTECTED_ROUTES = [
   "/dashboard",
@@ -14,42 +15,81 @@ const AUTH_ROUTES = [
   "/reset-password",
 ];
 
+const intlMiddleware = createIntlMiddleware(routing);
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Note: For client-side localStorage tokens, middleware can't check them.
-  // In a real app, you should use httpOnly cookies for the access token.
+  // 1. Run i18n middleware first
+  const response = intlMiddleware(request);
+
+  // 2. Auth logic
   const token = request.cookies.get("access_token")?.value;
 
+  // Create a helper to check paths regardless of locale
+  const checkPath = (routes: string[]) => {
+    return routes.some((route) => {
+      // Check if it's a root match or starts with the route
+      // Account for locale prefix like /en/dashboard or /vi/dashboard
+      return (
+        pathname === route ||
+        pathname.startsWith(`${route}/`) ||
+        routing.locales.some(
+          (locale) =>
+            pathname === `/${locale}${route}` ||
+            pathname.startsWith(`/${locale}${route}/`),
+        )
+      );
+    });
+  };
+
   const isProtectedRoute =
-    PROTECTED_ROUTES.some((route) => pathname.startsWith(route)) ||
-    pathname === "/";
-  const isAuthRoute = AUTH_ROUTES.some((route) => pathname.startsWith(route));
+    checkPath(PROTECTED_ROUTES) ||
+    pathname === "/" ||
+    routing.locales.includes(pathname.replace("/", "") as Locale);
+  const isAuthRoute = checkPath(AUTH_ROUTES);
 
   if (isProtectedRoute && !token) {
-    const url = new URL("/login", request.url);
-    if (pathname !== "/") {
+    // Redirect to login with current locale
+    const localeMatch = pathname.match(/^\/([^/]+)/);
+    const locale =
+      localeMatch && routing.locales.includes(localeMatch[1] as Locale)
+        ? localeMatch[1]
+        : routing.defaultLocale;
+
+    const url = new URL(`/${locale}/login`, request.url);
+    if (
+      pathname !== "/" &&
+      !routing.locales.includes(pathname.replace("/", "") as Locale)
+    ) {
       url.searchParams.set("callbackUrl", pathname);
     }
     return NextResponse.redirect(url);
   }
 
-  if ((isAuthRoute || pathname === "/") && token) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+  if (
+    (isAuthRoute ||
+      pathname === "/" ||
+      routing.locales.includes(pathname.replace("/", "") as Locale)) &&
+    token
+  ) {
+    const localeMatch = pathname.match(/^\/([^/]+)/);
+    const locale =
+      localeMatch && routing.locales.includes(localeMatch[1] as Locale)
+        ? localeMatch[1]
+        : routing.defaultLocale;
+    return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    // Match all pathnames except for
+    // - API routes
+    // - Static files
+    // - _next
+    "/((?!api|_next|.*\\..*).*)",
   ],
 };

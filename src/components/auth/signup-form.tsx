@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, X } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -27,9 +26,12 @@ import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { type SignUpInput, signUpSchema } from "@/lib/validations/auth";
 import { SocialAuth } from "./social-auth";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 
 export function SignUpForm() {
   const { signUp, isSigningUp, signUpError } = useAuth();
+  const t = useTranslations("Auth.SignUp");
   const [passwordStrength, setPasswordStrength] = useState({
     length: false,
     uppercase: false,
@@ -50,9 +52,9 @@ export function SignUpForm() {
 
   useEffect(() => {
     setPasswordStrength({
-      length: watchPassword.length >= 8,
-      uppercase: /[A-Z]/.test(watchPassword),
-      number: /[0-9]/.test(watchPassword),
+      length: (watchPassword || "").length >= 8,
+      uppercase: /[A-Z]/.test(watchPassword || ""),
+      number: /[0-9]/.test(watchPassword || ""),
     });
   }, [watchPassword]);
 
@@ -75,10 +77,8 @@ export function SignUpForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
-        <CardDescription>
-          Enter your information to get started with EngZen
-        </CardDescription>
+        <CardTitle className="text-2xl font-bold">{t("title")}</CardTitle>
+        <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <Form {...form}>
@@ -88,7 +88,7 @@ export function SignUpForm() {
               name="fullName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Full Name</FormLabel>
+                  <FormLabel>{t("fullName")}</FormLabel>
                   <FormControl>
                     <Input placeholder="John Doe" {...field} />
                   </FormControl>
@@ -101,7 +101,7 @@ export function SignUpForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t("email")}</FormLabel>
                   <FormControl>
                     <Input placeholder="name@example.com" {...field} />
                   </FormControl>
@@ -114,22 +114,22 @@ export function SignUpForm() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t("password")}</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="••••••••" {...field} />
                   </FormControl>
                   <FormMessage />
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-2">
                     <StrengthItem
-                      label="Min. 8 characters"
+                      label={t("strength.minChars")}
                       met={passwordStrength.length}
                     />
                     <StrengthItem
-                      label="One uppercase"
+                      label={t("strength.uppercase")}
                       met={passwordStrength.uppercase}
                     />
                     <StrengthItem
-                      label="One number"
+                      label={t("strength.number")}
                       met={passwordStrength.number}
                     />
                   </div>
@@ -141,7 +141,7 @@ export function SignUpForm() {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
+                  <FormLabel>{t("confirmPassword")}</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="••••••••" {...field} />
                   </FormControl>
@@ -153,11 +153,11 @@ export function SignUpForm() {
               <p className="text-sm font-medium text-destructive">
                 {signUpError instanceof Error
                   ? signUpError.message
-                  : "Registration failed"}
+                  : t("registrationFailed")}
               </p>
             )}
             <Button type="submit" className="w-full" disabled={isSigningUp}>
-              {isSigningUp ? "Creating account..." : "Sign Up"}
+              {isSigningUp ? t("submitting") : t("submit")}
             </Button>
           </form>
         </Form>
@@ -167,7 +167,7 @@ export function SignUpForm() {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
-              Or sign up with
+              {t("socialTitle")}
             </span>
           </div>
         </div>
@@ -175,12 +175,12 @@ export function SignUpForm() {
       </CardContent>
       <CardFooter className="flex flex-wrap items-center justify-center gap-2">
         <div className="text-sm text-muted-foreground">
-          Already have an account?{" "}
+          {t("alreadyHaveAccount")}{" "}
           <Link
             href="/login"
             className="text-primary hover:underline font-medium"
           >
-            Log in
+            {t("login")}
           </Link>
         </div>
       </CardFooter>

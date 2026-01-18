@@ -1,0 +1,69 @@
+{
+  "Auth": {
+    "Login": {
+      "title": "Login",
+      "description": "Enter your email and password to access your account",
+      "email": "Email",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Login",
+      "submitting": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "invalidCredentials": "Invalid credentials",
+      "socialTitle": "Or continue with"
+    },
+    "SignUp": {
+      "title": "Create an account",
+      "description": "Enter your information to get started with EngZen",
+      "fullName": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Create Account",
+      "submitting": "Creating account...",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Log in",
+      "registrationFailed": "Registration failed",
+      "socialTitle": "Or sign up with",
+      "strength": {
+        "minChars": "Min. 8 characters",
+        "uppercase": "One uppercase",
+        "number": "One number"
+      }
+    },
+    "ForgotPassword": {
+      "title": "Forgot password?",
+      "description": "Enter your email and we'll send you a link to reset your password",
+      "email": "Email",
+      "submit": "Send Reset Link",
+      "submitting": "Sending link...",
+      "successTitle": "Check your email",
+      "successDescription": "If an account exists for {email}, we've sent a link to reset your password.",
+      "backToLogin": "Back to login",
+      "remembered": "Remembered your password?",
+      "login": "Log in",
+      "error": "Something went wrong. Please try again later."
+    },
+    "ResetPassword": {
+      "title": "Reset password",
+      "description": "Enter your new password below",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password",
+      "submit": "Reset Password",
+      "submitting": "Resetting password...",
+      "successTitle": "Password reset successful",
+      "successDescription": "Your password has been reset successfully. Redirecting you to the login page...",
+      "error": "Failed to reset password. The link may have expired."
+    }
+  },
+  "Common": {
+    "brand": "EngZen",
+    "slogan": "Elevate your English journey"
+  },
+  "Index": {
+    "title": "To get started, edit the page.tsx file.",
+    "description": "Looking for a starting point or more instructions? Head over to Templates or the Learning center."
+  }
+}
