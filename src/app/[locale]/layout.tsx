@@ -23,6 +23,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "EngZen",
   description: "Elevate your English journey",
+  icons: {
+    icon: "/engzen_logo.svg",
+  },
 };
 
 export default async function LocaleLayout({

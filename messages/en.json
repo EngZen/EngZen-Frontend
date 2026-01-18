@@ -2,7 +2,7 @@
   "Auth": {
     "Login": {
       "title": "Login",
-      "description": "Enter your email and password to access your account",
+      "description": "Please login to continue",
       "email": "Email",
       "password": "Password",
       "rememberMe": "Remember me",
@@ -60,7 +60,13 @@
   },
   "Common": {
     "brand": "EngZen",
-    "slogan": "Elevate your English journey"
+    "slogan": "Elevate your English journey",
+    "description": "EngZen system helps you learn English effectively, easily and interestingly.",
+    "desc_1": "Smart learning path",
+    "desc_2": "Scientific vocabulary learning",
+    "desc_3": "AI-powered competency assessment",
+    "desc_4": "Time optimization",
+    "madeBy": "Made with by EngZen"
   },
   "Index": {
     "title": "To get started, edit the page.tsx file.",

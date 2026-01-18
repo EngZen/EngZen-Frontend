@@ -2,7 +2,7 @@
   "Auth": {
     "Login": {
       "title": "Đăng nhập",
-      "description": "Nhập email và mật khẩu để truy cập tài khoản của bạn",
+      "description": "Vui lòng đăng nhập để tiếp tục",
       "email": "Email",
       "password": "Mật khẩu",
       "rememberMe": "Ghi nhớ đăng nhập",
@@ -60,7 +60,13 @@
   },
   "Common": {
     "brand": "EngZen",
-    "slogan": "Nâng tầm hành trình tiếng Anh của bạn"
+    "slogan": "Nâng tầm hành trình tiếng Anh của bạn",
+    "description": "Hệ thống EngZen giúp bạn học tiếng Anh hiệu quả, dễ dàng và thú vị.",
+    "desc_1": "Lộ trình thông minh",
+    "desc_2": "Học từ vựng khoa học",
+    "desc_3": "Đánh giá năng lực AI",
+    "desc_4": "Tối ưu hóa thời gian",
+    "madeBy": "Made with by EngZen"
   },
   "Index": {
     "title": "Để bắt đầu, hãy chỉnh sửa tệp page.tsx.",

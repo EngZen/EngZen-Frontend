@@ -44,10 +44,10 @@ export function LoginForm() {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader className="space-y-1">
+    <Card className="w-full max-w-md mx-auto rounded-none border-0">
+      <CardHeader>
         <CardTitle className="text-2xl font-bold">{t("title")}</CardTitle>
-        <CardDescription>{t("description")}</CardDescription>
+        <CardDescription className="text-sm">{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <Form {...form}>
@@ -102,7 +102,7 @@ export function LoginForm() {
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
           </div>
-          <div className="relative flex justify-center text-xs uppercase">
+          <div className="relative flex justify-center text-xs">
             <span className="bg-background px-2 text-muted-foreground">
               {t("socialTitle")}
             </span>
