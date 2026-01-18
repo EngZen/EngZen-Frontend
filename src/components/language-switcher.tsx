@@ -19,7 +19,7 @@ export function LanguageSwitcher() {
       variant="ghost"
       size="sm"
       onClick={toggleLanguage}
-      className="fixed top-4 right-4 border border-border rounded-full px-4"
+      className="border border-border rounded-full px-4"
     >
       {locale === "en" ? "🇻🇳 Tiếng Việt" : "🇺🇸 English"}
     </Button>
