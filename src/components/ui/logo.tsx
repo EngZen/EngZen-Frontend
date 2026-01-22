@@ -13,7 +13,9 @@ export const Logo = ({
         height={height}
         viewBox="0 0 150 123"
         fill="none"
+        aria-labelledby="logo-title"
       >
+        <title id="logo-title">EngZen Logo</title>
         <path
           d="M0 123.006V0H40.7975L62.5766 29.1411H29.1411V48.773H85.5827L63.4969 77.6074H29.1411V93.865H52.4539L30.3681 123.006H0Z"
           fill="currentColor"

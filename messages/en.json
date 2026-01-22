@@ -12,12 +12,14 @@
       "noAccount": "Don't have an account?",
       "signUp": "Sign up",
       "invalidCredentials": "Invalid credentials",
-      "socialTitle": "Or continue with"
+      "socialTitle": "Or continue with",
+      "authError": "Username or password is incorrect"
     },
     "SignUp": {
       "title": "Create an account",
       "description": "Enter your information to get started with EngZen",
-      "fullName": "Full Name",
+      "firstName": "First Name",
+      "lastName": "Last Name",
       "email": "Email",
       "password": "Password",
       "confirmPassword": "Confirm Password",
@@ -59,6 +61,7 @@
     }
   },
   "Common": {
+    "loading": "Loading...",
     "brand": "EngZen",
     "slogan": "Elevate your English journey",
     "description": "EngZen system helps you learn English effectively, easily and interestingly.",
@@ -66,7 +69,28 @@
     "desc_2": "Scientific vocabulary learning",
     "desc_3": "AI-powered competency assessment",
     "desc_4": "Time optimization",
-    "madeBy": "Made with by EngZen"
+    "madeBy": "Made with by EngZen",
+    "error": {
+      "title": "Error",
+      "default": "An error occurred. Please try again.",
+      "network": "Network error. Please check your connection."
+    },
+    "success": {
+      "title": "Success",
+      "default": "Operation completed successfully."
+    },
+    "Validation": {
+      "email": "Invalid email address",
+      "required": "This field is required",
+      "passwordRequired": "Password is required",
+      "minChars": "{min} characters required",
+      "firstNameMin": "First name must be at least 2 characters",
+      "lastNameMin": "Last name must be at least 2 characters",
+      "passwordMin": "Password must be at least 8 characters",
+      "passwordUppercase": "Password must contain at least one uppercase letter",
+      "passwordNumber": "Password must contain at least one number",
+      "passwordMatch": "Passwords do not match"
+    }
   },
   "Index": {
     "title": "To get started, edit the page.tsx file.",

@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { Logo } from "../ui/logo";
+import { Logo } from "@/components/ui/logo";
 
 export const AuthDescription = () => {
   const t = useTranslations("Common");

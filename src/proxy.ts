@@ -1,6 +1,6 @@
-import createIntlMiddleware from "next-intl/middleware";
 import { type NextRequest, NextResponse } from "next/server";
-import { Locale, routing } from "./i18n/routing";
+import createIntlMiddleware from "next-intl/middleware";
+import { type Locale, routing } from "./i18n/routing";
 
 const PROTECTED_ROUTES = [
   "/dashboard",

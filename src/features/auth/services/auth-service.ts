@@ -1,10 +1,10 @@
-import { apiClient } from "./api-client";
+import { apiClient } from "@/lib/api-client";
 import type {
   ForgotPasswordInput,
   LoginInput,
   ResetPasswordInput,
   SignUpInput,
-} from "./validations/auth";
+} from "../types";
 
 export interface User {
   id: string;
@@ -22,16 +22,21 @@ export interface AuthResponse {
 
 export const authService = {
   login: async (data: LoginInput): Promise<AuthResponse> => {
-    return apiClient<AuthResponse>("/auth/login", {
+    return apiClient<AuthResponse>("/api/auth/login", {
       method: "POST",
       body: JSON.stringify(data),
     });
   },
 
   signUp: async (data: SignUpInput): Promise<AuthResponse> => {
-    return apiClient<AuthResponse>("/auth/register", {
+    return apiClient<AuthResponse>("/api/sign-up", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        first_name: data.firstName,
+        last_name: data.lastName,
+        email: data.email,
+        password: data.password,
+      }),
     });
   },
 

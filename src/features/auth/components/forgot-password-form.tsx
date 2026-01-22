@@ -2,14 +2,16 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2 } from "lucide-react";
-import { useRouter } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -22,49 +24,38 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { authService } from "@/lib/auth-service";
-import {
-  type ResetPasswordInput,
-  resetPasswordSchema,
-} from "@/lib/validations/auth";
-import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
+import { authService } from "../services/auth-service";
+import { createForgotPasswordSchema, type ForgotPasswordInput } from "../types";
 
-interface ResetPasswordFormProps {
-  token: string;
-}
-
-export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
-  const [isSuccess, setIsSuccess] = useState(false);
+export function ForgotPasswordForm() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-  const t = useTranslations("Auth.ResetPassword");
+  const t = useTranslations("Auth.ForgotPassword");
+  const tValidation = useTranslations("Common.Validation");
 
-  const form = useForm<ResetPasswordInput>({
-    resolver: zodResolver(resetPasswordSchema),
+  const form = useForm<ForgotPasswordInput>({
+    resolver: zodResolver(
+      createForgotPasswordSchema((key) => tValidation(key)),
+    ),
     defaultValues: {
-      password: "",
-      confirmPassword: "",
+      email: "",
     },
   });
 
-  const onSubmit = async (data: ResetPasswordInput) => {
+  const onSubmit = async (data: ForgotPasswordInput) => {
     setIsLoading(true);
-    setError(null);
     try {
-      await authService.resetPassword({ ...data, token });
-      setIsSuccess(true);
-      setTimeout(() => {
-        router.push("/login");
-      }, 3000);
+      await authService.forgotPassword(data);
+      setIsSubmitted(true);
     } catch {
-      setError(t("error"));
+      toast.error(t("error"));
     } finally {
       setIsLoading(false);
     }
   };
 
-  if (isSuccess) {
+  if (isSubmitted) {
     return (
       <Card className="w-full max-w-md mx-auto rounded-none border-0">
         <CardHeader>
@@ -75,9 +66,17 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
             {t("successTitle")}
           </CardTitle>
           <CardDescription className="text-center">
-            {t("successDescription")}
+            {t("successDescription", { email: form.getValues("email") })}
           </CardDescription>
         </CardHeader>
+        <CardFooter className="flex justify-center">
+          <Link
+            href="/login"
+            className="text-primary hover:underline font-medium"
+          >
+            {t("backToLogin")}
+          </Link>
+        </CardFooter>
       </Card>
     );
   }
@@ -93,39 +92,34 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
-              name="password"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("newPassword")}</FormLabel>
+                  <FormLabel>{t("email")}</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
+                    <Input placeholder="name@example.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t("confirmNewPassword")}</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {error && (
-              <p className="text-sm font-medium text-destructive">{error}</p>
-            )}
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? t("submitting") : t("submit")}
             </Button>
           </form>
         </Form>
       </CardContent>
+      <CardFooter className="flex justify-center">
+        <div className="text-sm text-muted-foreground">
+          {t("remembered")}{" "}
+          <Link
+            href="/login"
+            className="text-primary hover:underline font-medium"
+          >
+            {t("login")}
+          </Link>
+        </div>
+      </CardFooter>
     </Card>
   );
 }

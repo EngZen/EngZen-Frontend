@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -20,18 +22,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "@/hooks/use-auth";
-import { type LoginInput, loginSchema } from "@/lib/validations/auth";
-import { SocialAuth } from "./social-auth";
-import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
+import { useAuth } from "../hooks/use-auth";
+import { createLoginSchema, type LoginInput } from "../types";
+import { SocialAuth } from "./social-auth";
 
 export function LoginForm() {
-  const { login, isLoggingIn, loginError } = useAuth();
+  const { login, isLoggingIn } = useAuth();
   const t = useTranslations("Auth.Login");
+  const tValidation = useTranslations("Common.Validation");
 
   const form = useForm<LoginInput>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(createLoginSchema((key) => tValidation(key))),
     defaultValues: {
       email: "",
       password: "",
@@ -47,7 +49,9 @@ export function LoginForm() {
     <Card className="w-full max-w-md mx-auto rounded-none border-0">
       <CardHeader>
         <CardTitle className="text-2xl font-bold">{t("title")}</CardTitle>
-        <CardDescription className="text-sm">{t("description")}</CardDescription>
+        <CardDescription className="text-sm">
+          {t("description")}
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <Form {...form}>
@@ -59,7 +63,11 @@ export function LoginForm() {
                 <FormItem>
                   <FormLabel>{t("email")}</FormLabel>
                   <FormControl>
-                    <Input placeholder="name@example.com" {...field} />
+                    <Input
+                      placeholder="name@example.com"
+                      autoComplete="email"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -80,19 +88,35 @@ export function LoginForm() {
                     </Link>
                   </div>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="••••••••"
+                      autoComplete="current-password"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            {loginError && (
-              <p className="text-sm font-medium text-destructive">
-                {loginError instanceof Error
-                  ? loginError.message
-                  : t("invalidCredentials")}
-              </p>
-            )}
+            <FormField
+              control={form.control}
+              name="rememberMe"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 text-left">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>{t("rememberMe")}</FormLabel>
+                  </div>
+                </FormItem>
+              )}
+            />
+
             <Button type="submit" className="w-full" disabled={isLoggingIn}>
               {isLoggingIn ? t("submitting") : t("submit")}
             </Button>

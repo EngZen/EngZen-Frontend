@@ -12,12 +12,14 @@
       "noAccount": "Chưa có tài khoản?",
       "signUp": "Đăng ký ngay",
       "invalidCredentials": "Thông tin đăng nhập không hợp lệ",
-      "socialTitle": "Hoặc tiếp tục với"
+      "socialTitle": "Hoặc tiếp tục với",
+      "authError": "Tài khoản hoặc mật khẩu không chính xác"
     },
     "SignUp": {
       "title": "Tạo tài khoản",
       "description": "Nhập thông tin của bạn để bắt đầu với EngZen",
-      "fullName": "Họ và tên",
+      "firstName": "Tên",
+      "lastName": "Họ",
       "email": "Email",
       "password": "Mật khẩu",
       "confirmPassword": "Xác nhận mật khẩu",
@@ -59,6 +61,7 @@
     }
   },
   "Common": {
+    "loading": "Đang tải dữ liệu...",
     "brand": "EngZen",
     "slogan": "Nâng tầm hành trình tiếng Anh của bạn",
     "description": "Hệ thống EngZen giúp bạn học tiếng Anh hiệu quả, dễ dàng và thú vị.",
@@ -66,7 +69,28 @@
     "desc_2": "Học từ vựng khoa học",
     "desc_3": "Đánh giá năng lực AI",
     "desc_4": "Tối ưu hóa thời gian",
-    "madeBy": "Made with by EngZen"
+    "madeBy": "Được tạo bởi EngZen",
+    "error": {
+      "title": "Lỗi",
+      "default": "Đã có lỗi xảy ra. Vui lòng thử lại.",
+      "network": "Lỗi mạng. Vui lòng kiểm tra kết nối."
+    },
+    "success": {
+      "title": "Thành công",
+      "default": "Thao tác thành công."
+    },
+    "Validation": {
+      "email": "Email không hợp lệ",
+      "required": "Trường này là bắt buộc",
+      "passwordRequired": "Mật khẩu là bắt buộc",
+      "minChars": "Yêu cầu {min} ký tự",
+      "firstNameMin": "Tên phải có ít nhất 2 ký tự",
+      "lastNameMin": "Họ phải có ít nhất 2 ký tự",
+      "passwordMin": "Mật khẩu phải có ít nhất 8 ký tự",
+      "passwordUppercase": "Mật khẩu phải chứa ít nhất một chữ hoa",
+      "passwordNumber": "Mật khẩu phải chứa ít nhất một chữ số",
+      "passwordMatch": "Mật khẩu không khớp"
+    }
   },
   "Index": {
     "title": "Để bắt đầu, hãy chỉnh sửa tệp page.tsx.",
