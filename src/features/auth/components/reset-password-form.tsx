@@ -22,12 +22,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { authService } from "@/lib/auth-service";
-import {
-  type ResetPasswordInput,
-  resetPasswordSchema,
-} from "@/lib/validations/auth";
+import { authService } from "../services/auth-service";
+import { type ResetPasswordInput, createResetPasswordSchema } from "../types";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 interface ResetPasswordFormProps {
   token: string;
@@ -36,12 +34,12 @@ interface ResetPasswordFormProps {
 export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const t = useTranslations("Auth.ResetPassword");
+  const tValidation = useTranslations("Common.Validation");
 
   const form = useForm<ResetPasswordInput>({
-    resolver: zodResolver(resetPasswordSchema),
+    resolver: zodResolver(createResetPasswordSchema((key) => tValidation(key))),
     defaultValues: {
       password: "",
       confirmPassword: "",
@@ -50,7 +48,6 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
   const onSubmit = async (data: ResetPasswordInput) => {
     setIsLoading(true);
-    setError(null);
     try {
       await authService.resetPassword({ ...data, token });
       setIsSuccess(true);
@@ -58,7 +55,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         router.push("/login");
       }, 3000);
     } catch {
-      setError(t("error"));
+      toast.error(t("error"));
     } finally {
       setIsLoading(false);
     }
@@ -98,7 +95,12 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
                 <FormItem>
                   <FormLabel>{t("newPassword")}</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="••••••••"
+                      autoComplete="new-password"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,15 +113,17 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
                 <FormItem>
                   <FormLabel>{t("confirmNewPassword")}</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="••••••••"
+                      autoComplete="new-password"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            {error && (
-              <p className="text-sm font-medium text-destructive">{error}</p>
-            )}
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? t("submitting") : t("submit")}
             </Button>

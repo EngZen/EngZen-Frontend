@@ -1,5 +1,7 @@
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
+  typeof window === "undefined"
+    ? process.env.API_HOST_URL || "http://localhost:3000"
+    : "";
 
 type RequestOptions = RequestInit & {
   params?: Record<string, string>;
@@ -9,7 +11,12 @@ export async function apiClient<T>(
   endpoint: string,
   { params, ...options }: RequestOptions = {},
 ): Promise<T> {
-  const url = new URL(`${API_BASE_URL}${endpoint}`);
+  const base =
+    API_BASE_URL ||
+    (typeof window !== "undefined"
+      ? window.location.origin
+      : "http://localhost:3000");
+  const url = new URL(endpoint, base);
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
       url.searchParams.append(key, value);
@@ -45,7 +52,7 @@ export async function apiClient<T>(
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || "An error occurred");
+    throw new Error(errorData.message);
   }
 
   return response.json();

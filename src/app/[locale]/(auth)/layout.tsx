@@ -1,4 +1,4 @@
-import { AuthDescription } from "@/components/auth/auth-description";
+import { AuthDescription } from "@/features/auth/components/auth-description";
 import { Card } from "@/components/ui/card";
 import type React from "react";
 

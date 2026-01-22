@@ -22,22 +22,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { authService } from "@/lib/auth-service";
-import {
-  type ForgotPasswordInput,
-  forgotPasswordSchema,
-} from "@/lib/validations/auth";
+import { authService } from "../services/auth-service";
+import { type ForgotPasswordInput, createForgotPasswordSchema } from "../types";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
+import { toast } from "sonner";
 
 export function ForgotPasswordForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const t = useTranslations("Auth.ForgotPassword");
+  const tValidation = useTranslations("Common.Validation");
 
   const form = useForm<ForgotPasswordInput>({
-    resolver: zodResolver(forgotPasswordSchema),
+    resolver: zodResolver(
+      createForgotPasswordSchema((key) => tValidation(key)),
+    ),
     defaultValues: {
       email: "",
     },
@@ -45,12 +45,11 @@ export function ForgotPasswordForm() {
 
   const onSubmit = async (data: ForgotPasswordInput) => {
     setIsLoading(true);
-    setError(null);
     try {
       await authService.forgotPassword(data);
       setIsSubmitted(true);
     } catch {
-      setError(t("error"));
+      toast.error(t("error"));
     } finally {
       setIsLoading(false);
     }
@@ -104,9 +103,6 @@ export function ForgotPasswordForm() {
                 </FormItem>
               )}
             />
-            {error && (
-              <p className="text-sm font-medium text-destructive">{error}</p>
-            )}
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? t("submitting") : t("submit")}
             </Button>

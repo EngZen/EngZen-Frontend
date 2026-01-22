@@ -2,7 +2,7 @@
 
 import { Chrome, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { authService } from "@/lib/auth-service";
+import { authService } from "../services/auth-service";
 
 export function SocialAuth() {
   const handleSocialLogin = (provider: "google" | "facebook") => {

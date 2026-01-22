@@ -5,6 +5,26 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   /* config options here */
+  env: {
+    API_HOST_URL: process.env.API_HOST_URL,
+  },
+  experimental: {
+    optimizePackageImports: [
+      "lucide-react",
+      "@hookform/resolvers",
+      "zod",
+      "date-fns",
+      "lodash",
+    ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${process.env.API_HOST_URL}/api/:path*`,
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

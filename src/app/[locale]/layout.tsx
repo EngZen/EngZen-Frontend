@@ -9,6 +9,8 @@ import { notFound } from "next/navigation";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Toaster } from "@/components/ui/sonner";
+import { LoadingProvider } from "@/components/providers/loading-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,11 +61,14 @@ export default async function LocaleLayout({
         >
           <NextIntlClientProvider messages={messages}>
             <QueryProvider>
-              <div className="fixed top-4 right-4 flex items-center gap-2 z-50">
-                <LanguageSwitcher />
-                <ThemeToggle />
-              </div>
-              {children}
+              <LoadingProvider>
+                <div className="fixed top-4 right-4 flex items-center gap-2 z-50">
+                  <LanguageSwitcher />
+                  <ThemeToggle />
+                </div>
+                {children}
+                <Toaster />
+              </LoadingProvider>
             </QueryProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
