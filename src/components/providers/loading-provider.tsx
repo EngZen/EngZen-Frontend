@@ -2,13 +2,13 @@
 
 import {
   createContext,
-  useContext,
-  useState,
-  ReactNode,
+  type ReactNode,
   useCallback,
-  useId,
+  useContext,
   useEffect,
+  useId,
   useMemo,
+  useState,
 } from "react";
 import { GlobalLoading } from "@/components/ui/global-loading";
 
@@ -29,7 +29,9 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
     setLoadingKeys((prev) => {
       const newSet = new Set(prev);
       const keys = Array.isArray(key) ? key : [key];
-      keys.forEach((k) => newSet.add(k));
+      keys.forEach((k) => {
+        newSet.add(k);
+      });
       return newSet;
     });
   }, []);
@@ -38,7 +40,9 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
     setLoadingKeys((prev) => {
       const newSet = new Set(prev);
       const keys = Array.isArray(key) ? key : [key];
-      keys.forEach((k) => newSet.delete(k));
+      keys.forEach((k) => {
+        newSet.delete(k);
+      });
       return newSet;
     });
   }, []);

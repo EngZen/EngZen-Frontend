@@ -18,10 +18,17 @@ const nextConfig: NextConfig = {
     ],
   },
   async rewrites() {
+    const apiHost = process.env.API_HOST_URL;
+    if (!apiHost) {
+      console.warn(
+        "WARN: API_HOST_URL is not defined. API rewrites will be disabled.",
+      );
+      return [];
+    }
     return [
       {
         source: "/api/:path*",
-        destination: `${process.env.API_HOST_URL}/api/:path*`,
+        destination: `${apiHost}/api/:path*`,
       },
     ];
   },

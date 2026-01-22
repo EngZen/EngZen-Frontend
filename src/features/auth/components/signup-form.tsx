@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -22,12 +23,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "../hooks/use-auth";
-import { cn } from "@/lib/utils";
-import { type SignUpInput, createSignUpSchema } from "../types";
-import { SocialAuth } from "./social-auth";
-import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
+import { useAuth } from "../hooks/use-auth";
+import { createSignUpSchema, type SignUpInput } from "../types";
+import { SocialAuth } from "./social-auth";
 
 export function SignUpForm() {
   const { signUp, isSigningUp } = useAuth();

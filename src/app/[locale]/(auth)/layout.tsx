@@ -1,6 +1,6 @@
-import { AuthDescription } from "@/features/auth/components/auth-description";
-import { Card } from "@/components/ui/card";
 import type React from "react";
+import { Card } from "@/components/ui/card";
+import { AuthDescription } from "@/features/auth/components/auth-description";
 
 export default function AuthLayout({
   children,

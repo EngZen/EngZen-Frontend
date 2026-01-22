@@ -2,8 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,11 +24,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { authService } from "../services/auth-service";
-import { type ForgotPasswordInput, createForgotPasswordSchema } from "../types";
-import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
-import { toast } from "sonner";
+import { authService } from "../services/auth-service";
+import { createForgotPasswordSchema, type ForgotPasswordInput } from "../types";
 
 export function ForgotPasswordForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);

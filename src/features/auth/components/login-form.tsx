@@ -1,9 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Card,
   CardContent,
@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -21,11 +22,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "../hooks/use-auth";
-import { type LoginInput, createLoginSchema } from "../types";
-import { SocialAuth } from "./social-auth";
-import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
+import { useAuth } from "../hooks/use-auth";
+import { createLoginSchema, type LoginInput } from "../types";
+import { SocialAuth } from "./social-auth";
 
 export function LoginForm() {
   const { login, isLoggingIn } = useAuth();

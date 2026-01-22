@@ -2,10 +2,10 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { authService, type User } from "../services/auth-service";
 import type { LoginInput, SignUpInput } from "../types";
-import { toast } from "sonner";
-import { useTranslations } from "next-intl";
 
 export function useAuth() {
   const queryClient = useQueryClient();

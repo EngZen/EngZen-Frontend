@@ -2,9 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2 } from "lucide-react";
-import { useRouter } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,10 +23,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "@/i18n/routing";
 import { authService } from "../services/auth-service";
-import { type ResetPasswordInput, createResetPasswordSchema } from "../types";
-import { useTranslations } from "next-intl";
-import { toast } from "sonner";
+import { createResetPasswordSchema, type ResetPasswordInput } from "../types";
 
 interface ResetPasswordFormProps {
   token: string;
