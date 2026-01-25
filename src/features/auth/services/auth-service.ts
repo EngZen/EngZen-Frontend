@@ -65,7 +65,7 @@ export const authService = {
   },
 
   getCurrentUser: async (): Promise<User> => {
-    return apiClient<User>("/auth/me");
+    return apiClient<User>("/api/auth/me");
   },
 
   socialLogin: async (provider: "google" | "facebook"): Promise<void> => {
