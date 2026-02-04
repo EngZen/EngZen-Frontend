@@ -1,13 +1,13 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useEffect, useMemo, useState } from "react";
+import { useAppLoading } from "@/components/providers/loading-provider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useAppLoading } from "@/components/providers/loading-provider";
-import { useTranslations } from "next-intl";
-import { useWordList } from "@/features/words/hooks/use-words";
 import { useCategoryList } from "@/features/categories/hooks/use-categories";
-import { useSearchParams } from "next/navigation";
+import { useWordList } from "@/features/words/hooks/use-words";
 import type { FlashcardMode } from "../types";
 
 const DEFAULT_LIMIT = 200;
@@ -233,7 +233,7 @@ export function FlashcardsPage() {
 
   const handlePrev = () => {
     setRevealed(false);
-    setIndex((prev) => (total === 0 ? 0 : (prev === 0 ? total - 1 : prev - 1)));
+    setIndex((prev) => (total === 0 ? 0 : prev === 0 ? total - 1 : prev - 1));
   };
 
   const handleShuffle = () => {

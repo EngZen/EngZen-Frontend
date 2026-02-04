@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { type FormEvent, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useAppLoading } from "@/components/providers/loading-provider";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,13 +23,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAppLoading } from "@/components/providers/loading-provider";
+import { useCreateWord, useWordList } from "../hooks/use-words";
 import {
-  createWordSchema,
   type CreateWordFormValues,
   type CreateWordInput,
+  createWordSchema,
 } from "../types";
-import { useCreateWord, useWordList } from "../hooks/use-words";
 
 const DEFAULT_LIMIT = 20;
 

@@ -1,7 +1,8 @@
 "use client";
 
-import { type FormEvent, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { type FormEvent, useMemo, useState } from "react";
+import { useAppLoading } from "@/components/providers/loading-provider";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,9 +14,8 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { useAppLoading } from "@/components/providers/loading-provider";
-import { Link } from "@/i18n/routing";
 import { useWordList } from "@/features/words/hooks/use-words";
+import { Link } from "@/i18n/routing";
 import {
   useAddWordsToCategory,
   useCategoryDetail,
