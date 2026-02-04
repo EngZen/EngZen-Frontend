@@ -21,6 +21,168 @@ function shuffleArray<T>(items: T[]): T[] {
   return copy;
 }
 
+type FlashcardControlsProps = {
+  mode: FlashcardMode;
+  categoryId: string;
+  categories: { id: number; name: string }[];
+  isCategoriesLoading: boolean;
+  onModeChange: (value: FlashcardMode) => void;
+  onCategoryChange: (value: string) => void;
+  onShuffle: () => void;
+};
+
+function FlashcardControls({
+  mode,
+  categoryId,
+  categories,
+  isCategoriesLoading,
+  onModeChange,
+  onCategoryChange,
+  onShuffle,
+}: FlashcardControlsProps) {
+  const t = useTranslations("Flashcards");
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{t("controls")}</CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-2">
+          <span className="font-medium text-muted-foreground text-xs">
+            {t("modeLabel")}
+          </span>
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              variant={mode === "all" ? "default" : "outline"}
+              onClick={() => onModeChange("all")}
+            >
+              {t("modeAll")}
+            </Button>
+            <Button
+              type="button"
+              variant={mode === "category" ? "default" : "outline"}
+              onClick={() => onModeChange("category")}
+            >
+              {t("modeCategory")}
+            </Button>
+          </div>
+        </div>
+
+        <div className="flex flex-1 flex-col gap-2">
+          <span className="font-medium text-muted-foreground text-xs">
+            {t("categoryLabel")}
+          </span>
+          <select
+            className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+            value={categoryId}
+            onChange={(event) => onCategoryChange(event.target.value)}
+            disabled={mode !== "category" || isCategoriesLoading}
+          >
+            <option value="">{t("categoryPlaceholder")}</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <span className="font-medium text-muted-foreground text-xs">
+            {t("actions")}
+          </span>
+          <Button type="button" variant="outline" onClick={onShuffle}>
+            {t("shuffle")}
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+type FlashcardViewerProps = {
+  current?: {
+    word?: string;
+    meaning?: string | null;
+    ipa?: string | null;
+  };
+  total: number;
+  index: number;
+  revealed: boolean;
+  isError: boolean;
+  onFlip: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+};
+
+function FlashcardViewer({
+  current,
+  total,
+  index,
+  revealed,
+  isError,
+  onFlip,
+  onPrev,
+  onNext,
+}: FlashcardViewerProps) {
+  const t = useTranslations("Flashcards");
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>
+          {t("progress", { current: total === 0 ? 0 : index + 1, total })}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {isError ? (
+          <p className="text-destructive text-sm">{t("error")}</p>
+        ) : total === 0 ? (
+          <p className="text-muted-foreground text-sm">{t("empty")}</p>
+        ) : (
+          <button
+            type="button"
+            onClick={onFlip}
+            className="flex min-h-[220px] w-full flex-col items-center justify-center rounded-xl border border-muted-foreground/40 border-dashed bg-background px-6 py-10 text-center transition hover:border-primary"
+          >
+            <div className="text-muted-foreground text-xs uppercase tracking-[0.2em]">
+              {revealed ? t("backSide") : t("frontSide")}
+            </div>
+            <div className="mt-4 font-semibold text-3xl text-foreground">
+              {revealed ? current?.meaning || "-" : current?.word}
+            </div>
+            {revealed && (
+              <div className="mt-3 text-muted-foreground text-sm">
+                {t("ipaLabel")}: {current?.ipa || "-"}
+              </div>
+            )}
+            <div className="mt-6 text-muted-foreground text-xs">
+              {t("tapToFlip")}
+            </div>
+          </button>
+        )}
+
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <Button type="button" variant="outline" onClick={onPrev}>
+            {t("prev")}
+          </Button>
+          <div className="text-muted-foreground text-xs">
+            {t("wordMeta", {
+              word: current?.word ?? "-",
+              meaning: current?.meaning ?? "-",
+            })}
+          </div>
+          <Button type="button" variant="outline" onClick={onNext}>
+            {t("next")}
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 export function FlashcardsPage() {
   const t = useTranslations("Flashcards");
   const searchParams = useSearchParams();
@@ -57,12 +219,12 @@ export function FlashcardsPage() {
 
   const rawWords = listQuery.data?.data ?? [];
   const words = useMemo(() => {
-    const shuffled = shuffleArray(rawWords);
-    return seed === 0 ? rawWords : shuffled;
+    if (seed === 0) return rawWords;
+    return shuffleArray(rawWords);
   }, [rawWords, seed]);
 
-  const current = words[index];
   const total = words.length;
+  const current = words[index];
 
   const handleNext = () => {
     setRevealed(false);
@@ -71,10 +233,7 @@ export function FlashcardsPage() {
 
   const handlePrev = () => {
     setRevealed(false);
-    setIndex((prev) => {
-      if (total === 0) return 0;
-      return prev === 0 ? total - 1 : prev - 1;
-    });
+    setIndex((prev) => (total === 0 ? 0 : (prev === 0 ? total - 1 : prev - 1)));
   };
 
   const handleShuffle = () => {
@@ -99,119 +258,32 @@ export function FlashcardsPage() {
     <div className="min-h-screen bg-muted/30 px-4 py-10">
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          <h1 className="font-bold text-3xl text-foreground tracking-tight">
             {t("title")}
           </h1>
-          <p className="text-sm text-muted-foreground">{t("description")}</p>
+          <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("controls")}</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex flex-col gap-2">
-              <span className="text-xs font-medium text-muted-foreground">
-                {t("modeLabel")}
-              </span>
-              <div className="flex items-center gap-2">
-                <Button
-                  type="button"
-                  variant={mode === "all" ? "default" : "outline"}
-                  onClick={() => handleModeChange("all")}
-                >
-                  {t("modeAll")}
-                </Button>
-                <Button
-                  type="button"
-                  variant={mode === "category" ? "default" : "outline"}
-                  onClick={() => handleModeChange("category")}
-                >
-                  {t("modeCategory")}
-                </Button>
-              </div>
-            </div>
+        <FlashcardControls
+          mode={mode}
+          categoryId={categoryId}
+          categories={categoriesQuery.data?.data ?? []}
+          isCategoriesLoading={categoriesQuery.isLoading}
+          onModeChange={handleModeChange}
+          onCategoryChange={handleCategoryChange}
+          onShuffle={handleShuffle}
+        />
 
-            <div className="flex flex-1 flex-col gap-2">
-              <span className="text-xs font-medium text-muted-foreground">
-                {t("categoryLabel")}
-              </span>
-              <select
-                className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
-                value={categoryId}
-                onChange={(event) => handleCategoryChange(event.target.value)}
-                disabled={mode !== "category" || categoriesQuery.isLoading}
-              >
-                <option value="">{t("categoryPlaceholder")}</option>
-                {(categoriesQuery.data?.data ?? []).map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <span className="text-xs font-medium text-muted-foreground">
-                {t("actions")}
-              </span>
-              <Button type="button" variant="outline" onClick={handleShuffle}>
-                {t("shuffle")}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {t("progress", { current: total === 0 ? 0 : index + 1, total })}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {listQuery.isError ? (
-              <p className="text-sm text-destructive">{t("error")}</p>
-            ) : total === 0 ? (
-              <p className="text-sm text-muted-foreground">{t("empty")}</p>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setRevealed((prev) => !prev)}
-                className="flex min-h-[220px] w-full flex-col items-center justify-center rounded-xl border border-dashed border-muted-foreground/40 bg-background px-6 py-10 text-center transition hover:border-primary"
-              >
-                <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  {revealed ? t("backSide") : t("frontSide")}
-                </div>
-                <div className="mt-4 text-3xl font-semibold text-foreground">
-                  {revealed ? current?.meaning || "-" : current?.word}
-                </div>
-                {revealed && (
-                  <div className="mt-3 text-sm text-muted-foreground">
-                    {t("ipaLabel")}: {current?.ipa || "-"}
-                  </div>
-                )}
-                <div className="mt-6 text-xs text-muted-foreground">
-                  {t("tapToFlip")}
-                </div>
-              </button>
-            )}
-
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <Button type="button" variant="outline" onClick={handlePrev}>
-                {t("prev")}
-              </Button>
-              <div className="text-xs text-muted-foreground">
-                {t("wordMeta", {
-                  word: current?.word ?? "-",
-                  meaning: current?.meaning ?? "-",
-                })}
-              </div>
-              <Button type="button" variant="outline" onClick={handleNext}>
-                {t("next")}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <FlashcardViewer
+          current={current}
+          total={total}
+          index={index}
+          revealed={revealed}
+          isError={listQuery.isError}
+          onFlip={() => setRevealed((prev) => !prev)}
+          onPrev={handlePrev}
+          onNext={handleNext}
+        />
       </div>
     </div>
   );

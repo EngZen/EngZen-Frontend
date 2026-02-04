@@ -103,10 +103,10 @@ export function CategoryDetailPage({ categoryId }: { categoryId: number }) {
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tight text-foreground">
+            <h1 className="font-bold text-3xl text-foreground tracking-tight">
               {category?.name || t("detailTitle")}
             </h1>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               {category?.description || t("detailDescription")}
             </p>
           </div>
@@ -134,9 +134,9 @@ export function CategoryDetailPage({ categoryId }: { categoryId: number }) {
             </CardHeader>
             <CardContent className="space-y-4">
               {detailQuery.isError ? (
-                <p className="text-sm text-destructive">{t("error")}</p>
+                <p className="text-destructive text-sm">{t("error")}</p>
               ) : words.length === 0 ? (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   {t("wordsEmpty")}
                 </p>
               ) : (
@@ -147,10 +147,10 @@ export function CategoryDetailPage({ categoryId }: { categoryId: number }) {
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div>
-                        <div className="text-lg font-semibold text-foreground">
+                        <div className="font-semibold text-foreground text-lg">
                           {word.word}
                         </div>
-                        <div className="text-sm text-muted-foreground">
+                        <div className="text-muted-foreground text-sm">
                           {word.meaning || "-"}
                         </div>
                       </div>
@@ -162,7 +162,7 @@ export function CategoryDetailPage({ categoryId }: { categoryId: number }) {
                         {t("remove")}
                       </Button>
                     </div>
-                    <div className="mt-3 flex flex-wrap gap-3 text-xs text-muted-foreground">
+                    <div className="mt-3 flex flex-wrap gap-3 text-muted-foreground text-xs">
                       <span>
                         {t("ipaLabel")}: {word.ipa || "-"}
                       </span>
@@ -180,7 +180,7 @@ export function CategoryDetailPage({ categoryId }: { categoryId: number }) {
               )}
             </CardContent>
             <CardFooter className="flex flex-wrap items-center justify-between gap-3">
-              <span className="text-xs text-muted-foreground">
+              <span className="text-muted-foreground text-xs">
                 {t("page")} {page} {t("of")} {totalPages}
               </span>
               <div className="flex items-center gap-2">
@@ -224,32 +224,37 @@ export function CategoryDetailPage({ categoryId }: { categoryId: number }) {
               </form>
 
               {addWordQuery.isError ? (
-                <p className="text-sm text-destructive">{t("wordError")}</p>
+                <p className="text-destructive text-sm">{t("wordError")}</p>
               ) : availableWords.length === 0 ? (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   {t("addWordsEmpty")}
                 </p>
               ) : (
                 <div className="space-y-2">
-                  {availableWords.map((word) => (
-                    <label
-                      key={word.id}
-                      className="flex items-start gap-3 rounded-lg border border-border bg-background p-3"
-                    >
-                      <Checkbox
-                        checked={selectedWords.includes(word.id)}
-                        onCheckedChange={() => handleToggleWord(word.id)}
-                      />
-                      <div className="space-y-1">
-                        <div className="text-sm font-medium text-foreground">
-                          {word.word}
+                  {availableWords.map((word) => {
+                    const checkboxId = `add-word-${word.id}`;
+                    return (
+                      <label
+                        key={word.id}
+                        htmlFor={checkboxId}
+                        className="flex items-start gap-3 rounded-lg border border-border bg-background p-3"
+                      >
+                        <Checkbox
+                          id={checkboxId}
+                          checked={selectedWords.includes(word.id)}
+                          onCheckedChange={() => handleToggleWord(word.id)}
+                        />
+                        <div className="space-y-1">
+                          <div className="font-medium text-foreground text-sm">
+                            {word.word}
+                          </div>
+                          <div className="text-muted-foreground text-xs">
+                            {word.meaning || "-"}
+                          </div>
                         </div>
-                        <div className="text-xs text-muted-foreground">
-                          {word.meaning || "-"}
-                        </div>
-                      </div>
-                    </label>
-                  ))}
+                      </label>
+                    );
+                  })}
                 </div>
               )}
             </CardContent>

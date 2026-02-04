@@ -99,10 +99,10 @@ export function VocabularyPage() {
     <div className="min-h-screen bg-muted/30 px-4 py-10">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          <h1 className="font-bold text-3xl text-foreground tracking-tight">
             {t("title")}
           </h1>
-          <p className="text-sm text-muted-foreground">{t("description")}</p>
+          <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
 
         <Card>
@@ -145,9 +145,9 @@ export function VocabularyPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {listQuery.isError ? (
-                <p className="text-sm text-destructive">{t("error")}</p>
+                <p className="text-destructive text-sm">{t("error")}</p>
               ) : words.length === 0 ? (
-                <p className="text-sm text-muted-foreground">{t("empty")}</p>
+                <p className="text-muted-foreground text-sm">{t("empty")}</p>
               ) : (
                 words.map((wordItem) => (
                   <div
@@ -155,17 +155,17 @@ export function VocabularyPage() {
                     className="rounded-lg border border-border bg-background p-4 shadow-sm"
                   >
                     <div className="flex items-center justify-between gap-3">
-                      <div className="text-lg font-semibold text-foreground">
+                      <div className="font-semibold text-foreground text-lg">
                         {wordItem.word}
                       </div>
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-muted-foreground text-xs">
                         #{wordItem.id}
                       </span>
                     </div>
-                    <div className="mt-2 text-sm text-muted-foreground">
+                    <div className="mt-2 text-muted-foreground text-sm">
                       {wordItem.meaning || "-"}
                     </div>
-                    <div className="mt-3 flex flex-wrap gap-3 text-xs text-muted-foreground">
+                    <div className="mt-3 flex flex-wrap gap-3 text-muted-foreground text-xs">
                       <span>
                         {t("ipaLabel")}: {wordItem.ipa || "-"}
                       </span>
@@ -183,7 +183,7 @@ export function VocabularyPage() {
               )}
             </CardContent>
             <CardFooter className="flex flex-wrap items-center justify-between gap-3">
-              <span className="text-xs text-muted-foreground">
+              <span className="text-muted-foreground text-xs">
                 {t("page")} {page} {t("of")} {totalPages}
               </span>
               <div className="flex items-center gap-2">

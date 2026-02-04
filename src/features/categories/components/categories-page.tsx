@@ -151,10 +151,10 @@ export function CategoriesPage() {
     <div className="min-h-screen bg-muted/30 px-4 py-10">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          <h1 className="font-bold text-3xl text-foreground tracking-tight">
             {t("title")}
           </h1>
-          <p className="text-sm text-muted-foreground">{t("description")}</p>
+          <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
 
         <Card>
@@ -259,9 +259,9 @@ export function CategoriesPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {listQuery.isError ? (
-                <p className="text-sm text-destructive">{t("error")}</p>
+                <p className="text-destructive text-sm">{t("error")}</p>
               ) : categories.length === 0 ? (
-                <p className="text-sm text-muted-foreground">{t("empty")}</p>
+                <p className="text-muted-foreground text-sm">{t("empty")}</p>
               ) : (
                 categories.map((category) => (
                   <div
@@ -270,14 +270,14 @@ export function CategoriesPage() {
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div>
-                        <div className="text-lg font-semibold text-foreground">
+                        <div className="font-semibold text-foreground text-lg">
                           {category.name}
                         </div>
-                        <div className="text-sm text-muted-foreground">
+                        <div className="text-muted-foreground text-sm">
                           {category.description || t("noDescription")}
                         </div>
                       </div>
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-muted-foreground text-xs">
                         {t("wordCount", { count: category.wordCount ?? 0 })}
                       </span>
                     </div>
@@ -312,7 +312,7 @@ export function CategoriesPage() {
               )}
             </CardContent>
             <CardFooter className="flex flex-wrap items-center justify-between gap-3">
-              <span className="text-xs text-muted-foreground">
+              <span className="text-muted-foreground text-xs">
                 {t("page")} {page} {t("of")} {totalPages}
               </span>
               <div className="flex items-center gap-2">

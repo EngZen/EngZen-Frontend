@@ -46,9 +46,9 @@ export function LoginForm() {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto rounded-none border-0">
+    <Card className="mx-auto w-full max-w-md rounded-none border-0">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">{t("title")}</CardTitle>
+        <CardTitle className="font-bold text-2xl">{t("title")}</CardTitle>
         <CardDescription className="text-sm">
           {t("description")}
         </CardDescription>
@@ -82,7 +82,7 @@ export function LoginForm() {
                     <FormLabel>{t("password")}</FormLabel>
                     <Link
                       href="/forgot-password"
-                      className="text-sm font-medium text-primary hover:underline"
+                      className="font-medium text-primary text-sm hover:underline"
                     >
                       {t("forgotPassword")}
                     </Link>
@@ -135,11 +135,11 @@ export function LoginForm() {
         <SocialAuth />
       </CardContent>
       <CardFooter className="flex flex-wrap items-center justify-center gap-2">
-        <div className="text-sm text-muted-foreground">
+        <div className="text-muted-foreground text-sm">
           {t("noAccount")}{" "}
           <Link
             href="/register"
-            className="text-primary hover:underline font-medium"
+            className="font-medium text-primary hover:underline"
           >
             {t("signUp")}
           </Link>

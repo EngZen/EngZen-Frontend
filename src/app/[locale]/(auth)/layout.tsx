@@ -8,8 +8,8 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-muted/30 flex flex-col justify-center items-center p-4">
-      <Card className="w-full max-w-4xl flex flex-row rounded-lg overflow-hidden py-0 gap-0">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-muted/30 p-4">
+      <Card className="flex w-full max-w-4xl flex-row gap-0 overflow-hidden rounded-lg py-0">
         <div className="w-1/2">
           <AuthDescription />
         </div>

@@ -78,9 +78,9 @@ export function SignUpForm() {
   );
 
   return (
-    <Card className="w-full max-w-md mx-auto rounded-none border-0">
+    <Card className="mx-auto w-full max-w-md rounded-none border-0">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">{t("title")}</CardTitle>
+        <CardTitle className="font-bold text-2xl">{t("title")}</CardTitle>
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -154,7 +154,7 @@ export function SignUpForm() {
                     />
                   </FormControl>
                   <FormMessage />
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-2">
+                  <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3">
                     <StrengthItem
                       label={t("strength.minChars")}
                       met={passwordStrength.length}
@@ -208,11 +208,11 @@ export function SignUpForm() {
         <SocialAuth />
       </CardContent>
       <CardFooter className="flex flex-wrap items-center justify-center gap-2">
-        <div className="text-sm text-muted-foreground">
+        <div className="text-muted-foreground text-sm">
           {t("alreadyHaveAccount")}{" "}
           <Link
             href="/login"
-            className="text-primary hover:underline font-medium"
+            className="font-medium text-primary hover:underline"
           >
             {t("login")}
           </Link>

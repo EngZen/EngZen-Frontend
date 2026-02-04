@@ -42,6 +42,7 @@ export function useAuth() {
     onSuccess: (data) => {
       if (typeof window !== "undefined") {
         localStorage.setItem("access_token", data.accessToken);
+        // biome-ignore lint/suspicious/noDocumentCookie: cookie is required for backend auth.
         document.cookie = `access_token=${data.accessToken}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
       }
       queryClient.setQueryData(["auth-user"], data.user);
@@ -55,6 +56,7 @@ export function useAuth() {
     onSuccess: (data) => {
       if (typeof window !== "undefined") {
         localStorage.setItem("access_token", data.accessToken);
+        // biome-ignore lint/suspicious/noDocumentCookie: cookie is required for backend auth.
         document.cookie = `access_token=${data.accessToken}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
       }
       queryClient.setQueryData(["auth-user"], data.user);
@@ -68,6 +70,7 @@ export function useAuth() {
     onSuccess: () => {
       if (typeof window !== "undefined") {
         localStorage.removeItem("access_token");
+        // biome-ignore lint/suspicious/noDocumentCookie: cookie is required for backend auth.
         document.cookie =
           "access_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
       }
