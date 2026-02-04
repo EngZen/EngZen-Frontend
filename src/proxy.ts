@@ -7,6 +7,9 @@ const PROTECTED_ROUTES = [
   "/profile",
   "/settings",
   "/learning-path",
+  "/vocabulary",
+  "/flashcards",
+  "/categories",
 ];
 const AUTH_ROUTES = [
   "/login",
