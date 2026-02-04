@@ -136,7 +136,9 @@ export function CategoryDetailPage({ categoryId }: { categoryId: number }) {
               {detailQuery.isError ? (
                 <p className="text-sm text-destructive">{t("error")}</p>
               ) : words.length === 0 ? (
-                <p className="text-sm text-muted-foreground">{t("wordsEmpty")}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t("wordsEmpty")}
+                </p>
               ) : (
                 words.map((word) => (
                   <div

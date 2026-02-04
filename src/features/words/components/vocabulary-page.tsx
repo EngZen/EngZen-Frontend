@@ -90,9 +90,7 @@ export function VocabularyPage() {
       word: data.word.trim(),
       meaning: data.meaning?.trim() || undefined,
       ipa: data.ipa?.trim() || undefined,
-      frequency: data.frequency?.trim()
-        ? Number(data.frequency)
-        : undefined,
+      frequency: data.frequency?.trim() ? Number(data.frequency) : undefined,
     };
     createMutation.mutate(payload);
   };
@@ -200,7 +198,9 @@ export function VocabularyPage() {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
+                  onClick={() =>
+                    setPage((prev) => Math.min(totalPages, prev + 1))
+                  }
                   disabled={page >= totalPages}
                 >
                   {t("next")}
@@ -301,9 +301,7 @@ export function VocabularyPage() {
                     className="w-full"
                     disabled={createMutation.isPending}
                   >
-                    {createMutation.isPending
-                      ? t("submitting")
-                      : t("submit")}
+                    {createMutation.isPending ? t("submitting") : t("submit")}
                   </Button>
                 </form>
               </Form>

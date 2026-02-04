@@ -66,13 +66,8 @@ export function useUpdateCategory(options?: { onSuccess?: () => void }) {
   const t = useTranslations("Categories");
 
   return useMutation({
-    mutationFn: ({
-      id,
-      data,
-    }: {
-      id: number;
-      data: UpdateCategoryInput;
-    }) => categoriesService.update(id, data),
+    mutationFn: ({ id, data }: { id: number; data: UpdateCategoryInput }) =>
+      categoriesService.update(id, data),
     meta: {
       errorMessage: t("error"),
     },

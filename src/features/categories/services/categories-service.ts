@@ -22,7 +22,9 @@ function buildCategoryParams(
 }
 
 export const categoriesService = {
-  list: async (params?: ListCategoriesParams): Promise<CategoryListResponse> => {
+  list: async (
+    params?: ListCategoriesParams,
+  ): Promise<CategoryListResponse> => {
     return apiClient<CategoryListResponse>("/api/categories", {
       params: buildCategoryParams(params),
     });

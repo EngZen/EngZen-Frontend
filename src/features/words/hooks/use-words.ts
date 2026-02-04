@@ -4,7 +4,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { wordsService } from "../services/words-service";
-import type { CreateWordInput, ListWordsParams, WordListResponse } from "../types";
+import type {
+  CreateWordInput,
+  ListWordsParams,
+  WordListResponse,
+} from "../types";
 
 export function useWordList(filters: ListWordsParams) {
   const t = useTranslations("Vocabulary");

@@ -64,7 +64,10 @@ export type UpdateCategoryInput = {
 
 export const createCategorySchema = (t: (key: string) => string) =>
   z.object({
-    name: z.string().min(1, t("categoryNameRequired")).max(255, t("categoryNameMax")),
+    name: z
+      .string()
+      .min(1, t("categoryNameRequired"))
+      .max(255, t("categoryNameMax")),
     description: z
       .string()
       .max(1000, t("categoryDescriptionMax"))

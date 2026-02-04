@@ -7,7 +7,9 @@ import type {
   WordListResponse,
 } from "../types";
 
-function buildListParams(params?: ListWordsParams): Record<string, string> | undefined {
+function buildListParams(
+  params?: ListWordsParams,
+): Record<string, string> | undefined {
   if (!params) return undefined;
 
   const result: Record<string, string> = {};

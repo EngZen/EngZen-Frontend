@@ -206,7 +206,10 @@ export function CategoriesPage() {
                       <FormItem>
                         <FormLabel>{t("nameLabel")}</FormLabel>
                         <FormControl>
-                          <Input placeholder={t("namePlaceholder")} {...field} />
+                          <Input
+                            placeholder={t("namePlaceholder")}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -229,13 +232,8 @@ export function CategoriesPage() {
                     )}
                   />
                   <div className="flex flex-wrap gap-2">
-                    <Button
-                      type="submit"
-                      disabled={updateMutation.isPending}
-                    >
-                      {updateMutation.isPending
-                        ? t("saving")
-                        : t("save")}
+                    <Button type="submit" disabled={updateMutation.isPending}>
+                      {updateMutation.isPending ? t("saving") : t("save")}
                     </Button>
                     <Button
                       type="button"
@@ -358,7 +356,10 @@ export function CategoriesPage() {
                       <FormItem>
                         <FormLabel>{t("nameLabel")}</FormLabel>
                         <FormControl>
-                          <Input placeholder={t("namePlaceholder")} {...field} />
+                          <Input
+                            placeholder={t("namePlaceholder")}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -385,9 +386,7 @@ export function CategoriesPage() {
                     className="w-full"
                     disabled={createMutation.isPending}
                   >
-                    {createMutation.isPending
-                      ? t("submitting")
-                      : t("submit")}
+                    {createMutation.isPending ? t("submitting") : t("submit")}
                   </Button>
                 </form>
               </Form>
