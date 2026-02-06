@@ -62,7 +62,7 @@ export default async function LocaleLayout({
           <NextIntlClientProvider messages={messages}>
             <QueryProvider>
               <LoadingProvider>
-                <div className="fixed top-4 right-4 flex items-center gap-2 z-50">
+                <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
                   <LanguageSwitcher />
                   <ThemeToggle />
                 </div>

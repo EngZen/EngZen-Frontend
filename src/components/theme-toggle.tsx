@@ -22,8 +22,8 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="ghost" size="icon" className="rounded-full w-9 h-9">
-        <div className="w-4 h-4" />
+      <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
+        <div className="h-4 w-4" />
       </Button>
     );
   }
@@ -33,7 +33,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="rounded-full w-9 h-9 border border-border"
+      className="h-9 w-9 rounded-full border border-border"
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (

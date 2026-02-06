@@ -63,12 +63,12 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
   if (isSuccess) {
     return (
-      <Card className="w-full max-w-md mx-auto rounded-none border-0">
+      <Card className="mx-auto w-full max-w-md rounded-none border-0">
         <CardHeader>
-          <div className="flex justify-center mb-4 text-green-500">
+          <div className="mb-4 flex justify-center text-green-500">
             <CheckCircle2 className="h-12 w-12" />
           </div>
-          <CardTitle className="text-2xl font-bold text-center">
+          <CardTitle className="text-center font-bold text-2xl">
             {t("successTitle")}
           </CardTitle>
           <CardDescription className="text-center">
@@ -80,9 +80,9 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto rounded-none border-0">
+    <Card className="mx-auto w-full max-w-md rounded-none border-0">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">{t("title")}</CardTitle>
+        <CardTitle className="font-bold text-2xl">{t("title")}</CardTitle>
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
